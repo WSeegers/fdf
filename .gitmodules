@@ -1,0 +1,6 @@
+[submodule "toolkit-wtc"]
+	path = toolkit-wtc
+	url = https://github.com/WSeegers/toolkit-wtc
+[submodule "gfx-wtc"]
+	path = gfx-wtc
+	url = https://github.com/WSeegers/gfx-wtc

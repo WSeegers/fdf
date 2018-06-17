@@ -1,0 +1,49 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/06/03 20:54:46 by wseegers          #+#    #+#              #
+#    Updated: 2018/06/18 00:49:33 by wseegers         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = fdf
+CC = clang
+CFLAGS = -Werror -Wall -Wextra 
+INC = -I toolkit-wtc/include -I src
+LIB = toolkit-wtc/toolkit-wtc.a
+
+SRC_PATH = src
+SRC = create_window.c get_mlx.c create_vec3.c draw_line.c draw_cube.c\
+	  create_cube.c
+BIN_PATH = bin
+BIN := $(SRC:%.c=$(BIN_PATH)/%.o)
+DEP := $(BIN:%.o=%.d)
+
+all : Make_LIB $(NAME) 
+
+Make_LIB :
+	make -C toolkit-wtc
+
+$(NAME) : % : $(SRC_PATH)/%.c $(BIN) $(LIB)
+	$(CC) $(CFLAGS) $(INC) -o $@ $^ -lmlx -lXext -lX11
+
+$(BIN_PATH)/%.o : $(SRC_PATH)/%.c
+	@mkdir -p $(BIN_PATH)
+	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
+
+-include $(DEP)
+
+clean :
+	rm -rf $(BIN_PATH)
+
+fclean : clean
+	rm -f $(NAME)
+	make fclean -C toolkit-wtc
+
+re : fclean all
+
+.PHONEY : usage all make_all  clean  fclean  re
