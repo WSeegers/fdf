@@ -6,14 +6,14 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 22:02:39 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/17 23:33:34 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/06/27 18:30:02 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "s_vector.h"
+#include "point_vector.h"
 #include "f_memory.h"
 
-t_vec3	*create_vec3(double x, double y, double z)
+t_vec3	*vec3_create(double x, double y, double z)
 {
 	t_vec3 *v3;
 

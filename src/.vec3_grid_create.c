@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_window.h                                         :+:      :+:    :+:   */
+/*   vec3_grid_create.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/17 22:44:19 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/27 17:40:29 by wseegers         ###   ########.fr       */
+/*   Created: 2018/06/27 04:58:01 by wseegers          #+#    #+#             */
+/*   Updated: 2018/06/27 05:23:59 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef S_WINDOW_H
-# define S_WINDOW_H
+#include "s_vector.h"
+#include "f_memory.h"
 
-typedef void* 		t_win;
-
-typedef struct	s_window
+t_vec3_grid	*vec3_grid_create(size_t rows, size_t cols)
 {
-	t_win win;
-	int height;
-	int width;
-	double xscale;
-	double yscale;
-}				t_window;
-
-t_window *create_window(int height, int width, char *title);
-
-#endif
+	t_vec3_grid *grid;
+	size_t size;
+	
+	size = rows * cols;
+	grid = (t_vec3_grid*)f_memalloc(sizeof(*grid));
+	grid->plane = (t_vec3*)f_memalloc(sizeof(*grid->plane) * size);
+	grid->rows = rows;
+	grid->cols = cols;
+	grid->size = size;
+	return (grid);
+}

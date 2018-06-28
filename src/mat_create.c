@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_window.h                                         :+:      :+:    :+:   */
+/*   mat_create.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/17 22:44:19 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/27 17:40:29 by wseegers         ###   ########.fr       */
+/*   Created: 2018/06/27 19:08:41 by wseegers          #+#    #+#             */
+/*   Updated: 2018/06/27 19:11:01 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef S_WINDOW_H
-# define S_WINDOW_H
+#include "s_gfx_matrix.h"
+#include "f_memory.h"
 
-typedef void* 		t_win;
-
-typedef struct	s_window
+t_mat3	*mat3_create(void)
 {
-	t_win win;
-	int height;
-	int width;
-	double xscale;
-	double yscale;
-}				t_window;
+	t_mat3 *m3;
 
-t_window *create_window(int height, int width, char *title);
+	m3 = (t_mat3*)f_memalloc(sizeof(*m3));
+	return (m3);
+}
 
-#endif
+t_mat4	*mat4_create(void)
+{
+	t_mat4 *m4;
+
+	m4 = (t_mat4*)f_memalloc(sizeof(*m4));
+	return (m4);
+}

@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_window.h                                         :+:      :+:    :+:   */
+/*   line_list_create.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/17 22:44:19 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/27 17:40:29 by wseegers         ###   ########.fr       */
+/*   Created: 2018/06/27 18:09:31 by wseegers          #+#    #+#             */
+/*   Updated: 2018/06/27 18:12:21 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef S_WINDOW_H
-# define S_WINDOW_H
+#include "s_line_list.h"
+#include "f_memory.h"
 
-typedef void* 		t_win;
-
-typedef struct	s_window
+t_line_list	*line_list_create(void)
 {
-	t_win win;
-	int height;
-	int width;
-	double xscale;
-	double yscale;
-}				t_window;
+	t_line_list *llist;
 
-t_window *create_window(int height, int width, char *title);
-
-#endif
+	llist = (t_line_list*)f_memalloc(sizeof(*llist));
+	llist->verticies = vector_create();
+	llist->indicies = vector_create();
+	return (llist);
+}

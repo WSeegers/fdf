@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_window.h                                         :+:      :+:    :+:   */
+/*   llist_add_vert.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/17 22:44:19 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/27 17:40:29 by wseegers         ###   ########.fr       */
+/*   Created: 2018/06/27 18:16:47 by wseegers          #+#    #+#             */
+/*   Updated: 2018/06/27 18:18:01 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef S_WINDOW_H
-# define S_WINDOW_H
+#include "s_line_list.h"
+#include "point_vector.h" 
 
-typedef void* 		t_win;
-
-typedef struct	s_window
+void		llist_add_vert(t_line_list *llist, t_vec3 *v)
 {
-	t_win win;
-	int height;
-	int width;
-	double xscale;
-	double yscale;
-}				t_window;
-
-t_window *create_window(int height, int width, char *title);
-
-#endif
+	vector_add(llist->verticies, v);
+}

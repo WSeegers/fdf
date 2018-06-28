@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 14:27:52 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/17 23:52:08 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/06/27 18:52:12 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,15 @@ static void	draw_on_y(t_win win, t_point p1, t_point p2, t_colour col)
 	}
 }
 
+#include <stdio.h>
+
 void	draw_line(t_window *win, t_point *p1, t_point *p2, t_colour col)
 {
 	int	dx;
 	int dy;
 	double m;
+
+	printf("LINE: (%d, %d) -> (%d, %d)\n", p1->x, p1->y, p2->x, p2->y);
 	
 	if (p1->x == p2->x)
 	{
@@ -73,6 +77,7 @@ void	draw_line(t_window *win, t_point *p1, t_point *p2, t_colour col)
 			mlx_pixel_put(get_mlx(), win->win, p1->x, p1->y, col);
 		else
 			draw_vert(win->win, *p1, *p2, col);
+		return ;
 	}
 	if (p1->x > p2->x)
 		f_swapptr((void**)&p1, (void**)&p2);

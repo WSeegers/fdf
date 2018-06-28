@@ -6,7 +6,7 @@
 #    By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/03 20:54:46 by wseegers          #+#    #+#              #
-#    Updated: 2018/06/18 00:49:33 by wseegers         ###   ########.fr        #
+#    Updated: 2018/06/27 20:05:44 by wseegers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,19 +17,19 @@ INC = -I toolkit-wtc/include -I src
 LIB = toolkit-wtc/toolkit-wtc.a
 
 SRC_PATH = src
-SRC = create_window.c get_mlx.c create_vec3.c draw_line.c draw_cube.c\
-	  create_cube.c
+ALL_SRC = $(wildcard src/*.c)
+SRC = $(ALL_SRC:src/%=%)
 BIN_PATH = bin
 BIN := $(SRC:%.c=$(BIN_PATH)/%.o)
 DEP := $(BIN:%.o=%.d)
 
-all : Make_LIB $(NAME) 
+all : Make_LIB $(NAME)
 
 Make_LIB :
 	make -C toolkit-wtc
 
-$(NAME) : % : $(SRC_PATH)/%.c $(BIN) $(LIB)
-	$(CC) $(CFLAGS) $(INC) -o $@ $^ -lmlx -lXext -lX11
+$(NAME) : $(BIN) $(LIB)
+	$(CC) $(CFLAGS) $(INC) -o $@ $^ -lmlx -lXext -lX11 -lm
 
 $(BIN_PATH)/%.o : $(SRC_PATH)/%.c
 	@mkdir -p $(BIN_PATH)

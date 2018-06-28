@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_window.c                                    :+:      :+:    :+:   */
+/*   rotate_y.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/17 21:29:20 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/27 17:41:48 by wseegers         ###   ########.fr       */
+/*   Created: 2018/06/27 19:59:36 by wseegers          #+#    #+#             */
+/*   Updated: 2018/06/27 20:04:34 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include "gfxwtc.h"
-#include "f_memory.h"
 
-t_window *create_window(int height, int width, char *title)
+void	rotate_y(t_mat4 *m4, double rad)
 {
-	t_window *win;
+	m4->data[0][0] = cos(rad);
+	m4->data[0][1] = 0;
+	m4->data[0][2] = -sin(rad);
+	m4->data[0][3] = 0;
 
-	win = (t_window*)f_memalloc(sizeof(*win));
-	if (!title)
-		win->win = mlx_new_window(get_mlx(), width, height, "(no title)");
-	else
-		win->win = mlx_new_window(get_mlx(), width, height, title);
-	win->xscale = width / 2.0;
-	win->yscale = height / 2.0;
-	return (win);
+	m4->data[1][0] = 0;
+	m4->data[1][1] = 1;
+	m4->data[1][2] = 0;
+	m4->data[1][3] = 0;
+
+	m4->data[2][0] = sin(rad);
+	m4->data[2][1] = 0;
+	m4->data[2][2] = cos(rad);
+	m4->data[2][3] = 0;
+
+	m4->data[3][0] = 0;
+	m4->data[3][1] = 0;
+	m4->data[3][2] = 0;
+	m4->data[3][3] = 1;
 }

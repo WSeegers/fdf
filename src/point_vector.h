@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_vector.h                                         :+:      :+:    :+:   */
+/*   point_vector.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 21:59:12 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/18 01:12:48 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/06/27 17:31:59 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef S_VECTOR_H
-# define S_VECTOR_H
+#ifndef POINT_VECTOR_H
+# define POINT_VECTOR_H
 
-# define NEW_POINT(x, y) &(t_point){(int)x, (int)y}
+# include <stddef.h>
+
+# define POINT(x, y) (&(t_point){(int)x, (int)y})
 
 typedef struct	s_point
 {
@@ -21,7 +23,15 @@ typedef struct	s_point
 	int y;
 }				t_point;
 
-# define VEC3_TO_POINT(vec3) &(t_point){(int)vec3->x, (int)vec3->y}
+# define VEC_TO_POINT(vec) (&(t_point){(int)vec->x, (int)vec->y})
+
+typedef struct	s_vec2
+{
+	double x;
+	double y;
+}				t_vec2;
+
+# define VEC2(x, y) (&(t_vec3){(double)x, (double)y})
 
 typedef struct	s_vec3
 {
@@ -30,6 +40,21 @@ typedef struct	s_vec3
 	double z;
 }				t_vec3;
 
-t_vec3	*create_vec3(double x, double y, double z);
+# define VEC3(x, y, z) (&(t_vec3){(double)x, (double)y, (double)z}) 
+
+t_vec3	*vec3_create(double x, double y, double z);
+
+
+typedef struct	s_vec3_grid
+{
+	t_vec3	*plane;
+	size_t	rows;
+	size_t	cols;
+	size_t	size;
+}				t_vec3_grid;
+
+t_vec3_grid	*vec3_grid_create(size_t rows, size_t cols);
+
+# define GRID(grid, row, col)	(grid->plane + (row * grid->cols) + col)
 
 #endif

@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_window.h                                         :+:      :+:    :+:   */
+/*   llist_add_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/17 22:44:19 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/27 17:40:29 by wseegers         ###   ########.fr       */
+/*   Created: 2018/06/27 18:18:14 by wseegers          #+#    #+#             */
+/*   Updated: 2018/06/27 18:20:50 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef S_WINDOW_H
-# define S_WINDOW_H
+#include "s_line_list.h"
+#include "point_vector.h" 
+#include "f_memory.h"
 
-typedef void* 		t_win;
-
-typedef struct	s_window
+void		llist_add_line(t_line_list *llist, size_t i1, size_t i2)
 {
-	t_win win;
-	int height;
-	int width;
-	double xscale;
-	double yscale;
-}				t_window;
-
-t_window *create_window(int height, int width, char *title);
-
-#endif
+	vector_add(llist->indicies, (void*)i1);
+	vector_add(llist->indicies, (void*)i2);
+}
