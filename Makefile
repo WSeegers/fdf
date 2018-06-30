@@ -6,7 +6,7 @@
 #    By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/03 20:54:46 by wseegers          #+#    #+#              #
-#    Updated: 2018/06/27 20:05:44 by wseegers         ###   ########.fr        #
+#    Updated: 2018/06/30 11:10:56 by wseegers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,15 +21,22 @@ ALL_SRC = $(wildcard src/*.c)
 SRC = $(ALL_SRC:src/%=%)
 BIN_PATH = bin
 BIN := $(SRC:%.c=$(BIN_PATH)/%.o)
-DEP := $(BIN:%.o=%.d)
+DOS := $(sh uname)EP := $(BIN:%.o=%.d)
+OS := $(shell uname)
 
-all : Make_LIB $(NAME)
+ifeq ($(OS), Darwin)
+	LFLAGS = -lmlx -framework OpenGL -framework AppKit
+else
+	LFLAGS = -lmlx -lXext -lX11 -lm
+endif
 
-Make_LIB :
+all : make_LIB $(NAME)
+
+make_LIB :
 	make -C toolkit-wtc
 
 $(NAME) : $(BIN) $(LIB)
-	$(CC) $(CFLAGS) $(INC) -o $@ $^ -lmlx -lXext -lX11 -lm
+	$(CC) $(CFLAGS) $(INC) -o $@ $^ $(LFLAGS)
 
 $(BIN_PATH)/%.o : $(SRC_PATH)/%.c
 	@mkdir -p $(BIN_PATH)
