@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 22:02:39 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/03 14:10:09 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/03 18:03:12 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_vec3	*vec3_create(double x, double y, double z)
 	t_vec3 *v3;
 
 	v3 = (t_vec3*)f_memalloc(sizeof(*v3));
-	printf("%p\n", v3);
+//	printf("%p\n", v3);
 	v3->x = x;
 	v3->y = y;
 	v3->z = z;

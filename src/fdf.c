@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 14:13:41 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/03 13:52:04 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/03 19:10:33 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,18 +131,14 @@ int main(void)
 	//t_line_list *cube = cube_create();
 	t_line_list *map = parse_map();
 
-	printf("Vericies: %lu\n", map->verticies->total);
-	printf("Lines: %lu\n", map->indicies->total);
-	//map = transform(map, (t_vec3){1, 1, 1}, 
-	//							(t_vec3){0, 0, 0}, 
-	//							(t_vec3){-10, 0, 10});
+	//printf("Vericies: %lu\n", map->verticies->total);
+	//printf("Lines: %lu\n", map->indicies->total);
+	map = transform(map, (t_vec3){0.5, 0.5, 0.5}, 
+								(t_vec3){M_PI * -0.10, M_PI * -0.25, 0}, 
+								(t_vec3){-5, 0, 10});
 
-	t_vec3 *vt = LLIST_GET(map, 0);
-	printf("first (%f, %f, %f)\n", vt->x, vt->y, vt->z);
-	vt = (t_vec3*)map->verticies->data[0];
-	printf("first (%f, %f, %f)\n", vt->x, vt->y, vt->z);
-	draw(win, map);
 	fflush(stdout);
+	draw(win, map);
 
 /*	t_param param;
 	param.cube = cube;
