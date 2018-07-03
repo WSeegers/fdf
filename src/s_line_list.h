@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 17:17:53 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/27 18:30:58 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/02 13:31:09 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct	s_line_list
 # define LLIST_GET(llist, i) (LLIST_VGET(llist, LLIST_IGET(llist, i)))
 
 # define LLIST_ADD_VERT(llist, v3)	(vector_add(llist->verticies, v3))
-# define LLIST_ADD_LINE(llist, i1, i2) (
 
 t_line_list	*line_list_create(void);
 void		llist_add_vert(t_line_list *llist, t_vec3 *v);

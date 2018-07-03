@@ -6,16 +6,18 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 14:13:41 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/27 20:41:04 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/03 13:52:04 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include "gfxwtc.h"
+#include "f_memory.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-static t_line_list *cube_create(void)
+/*static t_line_list *cube_create(void)
 {
 	t_line_list *llist = line_list_create();
 
@@ -50,25 +52,73 @@ static t_line_list *cube_create(void)
 typedef struct	s_param
 {
 	t_line_list *cube;
-	t_mat4		*roty;
 	t_window	*win;
+	t_vec3		rot;
 }				t_param;
 
-int	f_roty(void *param)
+int	loop(void *param)
 {
 	t_param *p;
-	size_t i;
+	t_line_list *block1;
+	//t_line_list *block2;
+	//t_line_list *block3;
+	//t_line_list *block4;
 
 	p = (t_param*)param;
-	i = 0;
-	while (i < p->cube->verticies->total)
-		vec3_transf(LLIST_VGET(p->cube, i++), p->roty);
+
+	block1 = transform(p->cube, (t_vec3){1, 1, 1}, 
+								(t_vec3){p->rot.x * M_PI, p->rot.y * M_PI, p->rot.z * M_PI}, 
+								(t_vec3){0, 0, 2});
+	//block2 = transform(p->cube, (t_vec3){1, 1, 1}, (t_vec3){0 , 0, r * M_PI}, (t_vec3){0, 2, 2});
+	//block3 = transform(p->cube, (t_vec3){1, 1, 1}, (t_vec3){0 , r * M_PI, 0}, (t_vec3){0, 0, 2});
+	//block4 = transform(p->cube, (t_vec3){1, 1, 1}, (t_vec3){r * M_PI, 0, 0}, (t_vec3){0, -2, 2});
+	
 
 	mlx_clear_window(get_mlx(), p->win->win);
-	draw(p->win, p->cube);
+	draw(p->win, block1);
+	//draw(p->win, block2);
+	//draw(p->win, block3);
+	//draw(p->win, block4);
+	//draw(p->win, p->cube);
 	usleep(50000);
+	f_memdel((void**)&block1);
+	//f_memdel((void**)&block2);
+	//f_memdel((void**)&block3);
+	//f_memdel((void**)&block4);
 	return (0);
 }
+
+# define ROT_SPEED 0.05
+
+int key_hook(int keycode,void *param)
+{
+	t_param *p;
+
+
+	p = (t_param*)param;
+
+	if (keycode == 0) //A
+		p->rot.y = fmod((p->rot.y += ROT_SPEED), 2);
+	else if (keycode == 2) //D
+		p->rot.y = fmod((p->rot.y -= ROT_SPEED), 2);
+	else if (keycode == 13) //W
+		p->rot.x = fmod((p->rot.x += ROT_SPEED), 2);
+	else if (keycode == 1) // S
+		p->rot.x = fmod((p->rot.x -= ROT_SPEED), 2);
+	else if (keycode == 12) //Q
+		p->rot.z = fmod((p->rot.z += ROT_SPEED), 2);
+	else if (keycode == 14) // E
+		p->rot.z = fmod((p->rot.z -= ROT_SPEED), 2);
+	return (0);
+}
+
+int	mouse_hook(int button, int x, int y, void *param)
+{
+	(void)param;
+	printf("keypress -> %d\n (%d, %d)", button, x, y);
+	return (0);
+}*/
+
 
 int main(void)
 {
@@ -78,19 +128,32 @@ int main(void)
 	mlx = get_mlx();
 	win = create_window(800, 800, "WINDOW!!");
 
-	t_line_list *cube = cube_create();
+	//t_line_list *cube = cube_create();
+	t_line_list *map = parse_map();
 
-	t_mat4 roty;
-	rotate_y(&roty, M_PI * 0.01);
+	printf("Vericies: %lu\n", map->verticies->total);
+	printf("Lines: %lu\n", map->indicies->total);
+	//map = transform(map, (t_vec3){1, 1, 1}, 
+	//							(t_vec3){0, 0, 0}, 
+	//							(t_vec3){-10, 0, 10});
 
-	t_param param;
-	param.cube = cube;
-	param.roty = &roty;
-	param.win = win;
-	
+	t_vec3 *vt = LLIST_GET(map, 0);
+	printf("first (%f, %f, %f)\n", vt->x, vt->y, vt->z);
+	vt = (t_vec3*)map->verticies->data[0];
+	printf("first (%f, %f, %f)\n", vt->x, vt->y, vt->z);
+	draw(win, map);
 	fflush(stdout);
 
-	mlx_loop_hook(get_mlx(), f_roty, &param);
-	mlx_loop(mlx);
+/*	t_param param;
+	param.cube = cube;
+	param.win = win;
+	param.rot.x = 0;
+	param.rot.y = 0;
+	param.rot.z = 0;
+	
+	mlx_mouse_hook(win->win, mouse_hook, &param);
+	mlx_key_hook(win->win, key_hook, &param);
+	mlx_loop_hook(get_mlx(), loop, &param);
+*/	mlx_loop(mlx);
 	return (0);
 }

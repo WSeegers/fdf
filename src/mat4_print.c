@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_vec3.c                                      :+:      :+:    :+:   */
+/*   mat4_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/17 22:02:39 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/03 14:10:09 by wseegers         ###   ########.fr       */
+/*   Created: 2018/07/03 05:43:25 by wseegers          #+#    #+#             */
+/*   Updated: 2018/07/03 05:56:04 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "point_vector.h"
-#include "f_memory.h"
-
 #include <stdio.h>
+#include "gfxwtc.h"
 
-t_vec3	*vec3_create(double x, double y, double z)
+void	mat4_print(t_mat4 *m4)
 {
-	t_vec3 *v3;
+	int i;
+	int j;
 
-	v3 = (t_vec3*)f_memalloc(sizeof(*v3));
-	printf("%p\n", v3);
-	v3->x = x;
-	v3->y = y;
-	v3->z = z;
-	return (v3);
+	i = -1;
+	while (++i < 4 && (j = -1))
+	{
+		printf("|");
+		while (++j < 4)
+			printf (" %f |", m4->data[i][j]);
+		printf("\n");
+	}
 }

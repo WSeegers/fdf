@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 19:05:05 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/27 19:49:10 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/02 13:31:06 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ t_mat4	*mat4_create(void);
 void	mat4_init_id(t_mat4 *m4);
 t_mat4	*mat4_mul(t_mat4 *m1, t_mat4 *m2);
 void	vec3_transf(t_vec3 *v, t_mat4 *m);
-
 
 #endif

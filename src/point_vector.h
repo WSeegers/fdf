@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 21:59:12 by wseegers          #+#    #+#             */
-/*   Updated: 2018/06/27 17:31:59 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/02 14:18:25 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct	s_vec3
 # define VEC3(x, y, z) (&(t_vec3){(double)x, (double)y, (double)z}) 
 
 t_vec3	*vec3_create(double x, double y, double z);
+t_vec3	*vec3_copy(t_vec3 *vec);
 
 
 typedef struct	s_vec3_grid
