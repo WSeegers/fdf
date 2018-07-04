@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 14:13:41 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/03 19:10:33 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/04 08:00:35 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 
 	return (llist);
 }
-
+*/
 typedef struct	s_param
 {
 	t_line_list *cube;
@@ -66,9 +66,9 @@ int	loop(void *param)
 
 	p = (t_param*)param;
 
-	block1 = transform(p->cube, (t_vec3){1, 1, 1}, 
+	block1 = transform(p->cube, (t_vec3){0.5, -0.5, 0.5}, 
 								(t_vec3){p->rot.x * M_PI, p->rot.y * M_PI, p->rot.z * M_PI}, 
-								(t_vec3){0, 0, 2});
+								(t_vec3){0, 0, 10});
 	//block2 = transform(p->cube, (t_vec3){1, 1, 1}, (t_vec3){0 , 0, r * M_PI}, (t_vec3){0, 2, 2});
 	//block3 = transform(p->cube, (t_vec3){1, 1, 1}, (t_vec3){0 , r * M_PI, 0}, (t_vec3){0, 0, 2});
 	//block4 = transform(p->cube, (t_vec3){1, 1, 1}, (t_vec3){r * M_PI, 0, 0}, (t_vec3){0, -2, 2});
@@ -88,7 +88,7 @@ int	loop(void *param)
 	return (0);
 }
 
-# define ROT_SPEED 0.05
+#define ROT_SPEED 0.05
 
 int key_hook(int keycode,void *param)
 {
@@ -117,7 +117,7 @@ int	mouse_hook(int button, int x, int y, void *param)
 	(void)param;
 	printf("keypress -> %d\n (%d, %d)", button, x, y);
 	return (0);
-}*/
+}
 
 
 int main(void)
@@ -131,17 +131,16 @@ int main(void)
 	//t_line_list *cube = cube_create();
 	t_line_list *map = parse_map();
 
-	//printf("Vericies: %lu\n", map->verticies->total);
-	//printf("Lines: %lu\n", map->indicies->total);
-	map = transform(map, (t_vec3){0.5, 0.5, 0.5}, 
-								(t_vec3){M_PI * -0.10, M_PI * -0.25, 0}, 
-								(t_vec3){-5, 0, 10});
-
+	printf("Vericies: %lu\n", map->verticies->total);
+	printf("Lines: %lu\n", map->indicies->total);
+	//map = transform(map, (t_vec3){0.5, -0.1, 0.5}, 
+	//							(t_vec3){M_PI * -0.35, M_PI * 0.15, 0}, 
+	//							(t_vec3){0, 0, 10});
 	fflush(stdout);
-	draw(win, map);
+	//draw(win, map);
 
-/*	t_param param;
-	param.cube = cube;
+	t_param param;
+	param.cube = map;
 	param.win = win;
 	param.rot.x = 0;
 	param.rot.y = 0;
@@ -150,6 +149,6 @@ int main(void)
 	mlx_mouse_hook(win->win, mouse_hook, &param);
 	mlx_key_hook(win->win, key_hook, &param);
 	mlx_loop_hook(get_mlx(), loop, &param);
-*/	mlx_loop(mlx);
+	mlx_loop(mlx);
 	return (0);
 }

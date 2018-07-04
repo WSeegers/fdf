@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 15:30:56 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/03 19:01:02 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/04 07:42:00 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	create_lines(t_line_list *map, size_t x_max, size_t z_max)
 	{
 		llist_add_line(map, w + x, w + x + 1);
 		printf("line: %lu -> %lu\n", w + x, w + x + 1);
-	}
+		}
 	//llist_add_line(map, w + x, w1 + x );
 
 }
@@ -62,7 +62,7 @@ t_line_list	*parse_map(void)
 	map = line_list_create();
 	z = -1;
 	while (f_next_line(&line, STDIN) && f_strlen(line) && (x = -1))
-	{
+	{	
 		split = f_strsplit(line, ' ');
 		++z;
 		while (split[++x])
@@ -71,5 +71,8 @@ t_line_list	*parse_map(void)
 		f_strarrdel(split);
 	}
 	create_lines(map, x, ++z);
+	map = transform(map, (t_vec3){1, 1, 1}, 
+								(t_vec3){0, 0, 0}, 
+								(t_vec3){-(x / 2.0), 0, -(z / 2.0)});
 	return (map);
 }
