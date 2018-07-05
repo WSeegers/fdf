@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 14:27:52 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/03 13:14:09 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/05 15:47:16 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "gfxwtc.h"
 #include "f_memory.h"
 #include "f_math.h"
+
+#include <stdio.h>
 
 static void	draw_vert(t_win win, t_point p1, t_point p2, t_colour col)
 {
@@ -31,37 +33,55 @@ static void	draw_vert(t_win win, t_point p1, t_point p2, t_colour col)
 
 static void	draw_on_x(t_win win, t_point p1, t_point p2, t_colour col)
 {
-	double y;
-	double m;
 	t_mlx mlx;
+	int y;
+	int de;
+	int e;
+	int dx;
 
 	mlx = get_mlx();
-	m = (double)(p2.y - p1.y) / (double)(p2.x - p1.x);
-	y = (double)p1.y;
+	y = p1.y;
+	dx = p2.x - p1.x;
+	de = f_abs(p2.y - p1.y) * 2;
+	e = 0;
 	while (p1.x	< p2.x)
 	{
 		mlx_pixel_put(mlx, win, p1.x++, y, col);
-		y += m;
+		e += de;
+		if (e > dx)
+		{
+			y += (p2.y > p1.y) ? 1 : -1;	
+			e -= dx * 2;
+		}
 	}
 }
 
 static void	draw_on_y(t_win win, t_point p1, t_point p2, t_colour col)
 {
-	double x;
-	double m;
 	t_mlx mlx;
+	int x;
+	int de;
+	int e;
+	int dy;
+
 
 	mlx = get_mlx();
-	m = (double)(p2.x - p1.x) / (double)(p2.y - p1.y);
-	x = (double)p1.x;
+	x = p1.x;
+	dy = p2.y - p1.y;
+	de = f_abs(p2.x - p1.x) * 2;
+	e = 0;
 	while (p1.y	< p2.y)
 	{
 		mlx_pixel_put(mlx, win, x, p1.y++, col);
-		x += m;
+		e += de;
+		if (e > dy)
+		{
+			x += (p2.x > p1.x) ? 1 : -1;	
+			e -= dy * 2;
+		}
 	}
 }
 
-#include <stdio.h>
 
 void	draw_line(t_window *win, t_point *p1, t_point *p2, t_colour col)
 {
@@ -69,7 +89,7 @@ void	draw_line(t_window *win, t_point *p1, t_point *p2, t_colour col)
 	int dy;
 	double m;
 
-	printf("LINE: (%d, %d) -> (%d, %d)\n", p1->x, p1->y, p2->x, p2->y);
+	//printf("LINE: (%d, %d) -> (%d, %d)\n", p1->x, p1->y, p2->x, p2->y);
 	
 	if (p1->x == p2->x)
 	{
