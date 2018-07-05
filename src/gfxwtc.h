@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 14:37:15 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/05 15:55:45 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/05 16:08:41 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define GFXWTC_H
 
 #include <math.h>
+#include <stdbool.h>
 #include "point_vector.h"
 #include "s_window.h"
 #include "s_line_list.h"
 #include "s_gfx_matrix.h"
 #include "colours.h"
-#include "fdf.h"
 
 typedef void*		t_mlx;
 

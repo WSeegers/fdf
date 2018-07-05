@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 14:13:41 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/05 15:55:43 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/05 16:41:31 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	draw_loop(void *param)
 	p = (t_param*)param;
 
 	p->rot.y = fmod((p->rot.y = p->rot.y + p->drot.y), 2);
-	block1 = transform(p->cube, (t_vec3){1, 1, 1}, 
+	block1 = transform(p->cube, p->scale, 
 								(t_vec3){p->rot.x * M_PI, p->rot.y * M_PI, p->rot.z * M_PI}, 
 								p->transl);
 	mlx_clear_window(get_mlx(), p->win->win);
@@ -113,8 +113,8 @@ int main(void)
 	param.drot.y = 0;
 	param.drot.z = 0;
 	param.transl.x = 0;
-	param.transl.y = -100;
-	param.transl.z = env.z * 1;
+	param.transl.y = env.z * -0.5;
+	param.transl.z = env.z * 1.05;
 	param.scale.x = 1;
 	param.scale.y = 1;
 	param.scale.z = 1;

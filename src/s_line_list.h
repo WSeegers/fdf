@@ -6,13 +6,14 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 17:17:53 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/02 13:31:09 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/05 16:16:42 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef S_LINE_LIST_H
 # define S_LINE_LIST_H
 
+# include <stdbool.h>
 # include "point_vector.h"
 # include "s_vector.h"
 # include "s_window.h"
@@ -32,6 +33,6 @@ typedef struct	s_line_list
 t_line_list	*line_list_create(void);
 void		llist_add_vert(t_line_list *llist, t_vec3 *v);
 void		llist_add_line(t_line_list *llist, size_t i1, size_t i2);
-void		draw(t_window *win, t_line_list *line_list);
+void		draw(t_window *win, t_line_list *llist);
 
 #endif

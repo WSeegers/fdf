@@ -6,10 +6,11 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 17:28:26 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/05 14:42:34 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/05 16:17:25 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdbool.h>
 #include "s_window.h"
 #include "s_line_list.h"
 #include "point_vector.h" 
