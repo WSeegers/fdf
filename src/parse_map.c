@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 15:30:56 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/05 15:26:37 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/06 08:53:44 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,17 @@ void	create_lines(t_line_list *map, size_t x_max, size_t z_max)
 		llist_add_line(map, w + x, w + x + 1);
 }
 
-
-t_line_list	*parse_map(t_env *env)
+static t_line_list *get_verticies(t_env *env)
 {
-	char			*line;
 	t_line_list		*map;
+	char			*line;
 	char			**split;
 	size_t			x;
 	size_t			z;
 
-	(void)env;
 	map = line_list_create();
 	z = -1;
-	env->max_y = 0;
-	while (f_next_line(&line, STDIN) && f_strlen(line) && (x = -1))
+	while (f_next_line(&line, env->file) && f_strlen(line) && (x = -1))
 	{	
 		split = f_strsplit(line, ' ');
 		++z;
@@ -67,11 +64,22 @@ t_line_list	*parse_map(t_env *env)
 		f_strdel(&line);
 		f_strarrdel(split);
 	}
-	create_lines(map, x, ++z);
 	env->x = x;
-	env->z = z;
+	env->z = ++z;
+	return (map);
+}
+
+t_line_list	*parse_map(t_env *env)
+{
+	t_line_list		*map;
+
+	env->max_y = 0;
+	map = get_verticies(env);
+	create_lines(map, env->x, env->z);
 	env->map = transform(map, (t_vec3){1, 1, -1}, 
 								(t_vec3){0, 0, 0}, 
-								(t_vec3){-(x / 2.0), 0, z / 2.0});
+								(t_vec3){-(env->x / 2.0), 0, env->z / 2.0});
+	if (env->z * env->x != env->map->verticies->total)
+		f_eexit(0, "Only square maps are viable");
 	return (env->map);
 }

@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/02 07:15:57 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/03 06:13:44 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/06 12:01:38 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,8 @@ t_line_list	*apply_transform(t_line_list *llist, t_mat4 *transf)
 	i = -1;
 	while (++i < llist->verticies->total)
 	{
-		llist_add_vert(ret, vec3_copy(LLIST_VGET(llist, i)));
+		t_vec3 *v;
+		llist_add_vert(ret, (v = vec3_copy(LLIST_VGET(llist, i))));
 		vec3_transf(LLIST_VGET(ret, i), transf);
 	}
 	i = -1;

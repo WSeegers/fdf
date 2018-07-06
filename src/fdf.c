@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 14:13:41 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/05 16:41:31 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/06 14:02:05 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	draw_loop(void *param)
 	p = (t_param*)param;
 
 	p->rot.y = fmod((p->rot.y = p->rot.y + p->drot.y), 2);
-	block1 = transform(p->cube, p->scale, 
+	block1 = transform(p->map, p->scale, 
 								(t_vec3){p->rot.x * M_PI, p->rot.y * M_PI, p->rot.z * M_PI}, 
 								p->transl);
 	mlx_clear_window(get_mlx(), p->win->win);
@@ -32,8 +32,6 @@ static int	draw_loop(void *param)
 	return (0);
 }
 
-#define ROT_SPEED 0.01
-#define TRANS_SIZE 1
 
 #include <stdio.h>
 
@@ -48,7 +46,6 @@ int key_hook(int keycode,void *param)
 		p->drot.y += ROT_SPEED;
 	else if (keycode == 2) //D
 		p->drot.y -= ROT_SPEED;
-		//p->drot.y = fmod((p->drot.y -= ROT_SPEED), 2);
 	else if (keycode == 13) //W
 		p->rot.x = fmod((p->rot.x += ROT_SPEED), 2);
 	else if (keycode == 1) // S
@@ -92,19 +89,32 @@ int	mouse_hook(int button, int x, int y, void *param)
 }
 
 
-int main(void)
+int main(int ac, char *av[])
 {
 	t_window *win;
 	t_mlx mlx;
 	t_env env;
-	
-	mlx = get_mlx();
-	win = create_window(1200, 1900, "WINDOW!!");
-
-	t_line_list *map = parse_map(&env);
-
 	t_param param;
-	param.cube = map;
+
+	(void)ac;
+	(void)av;
+
+	if (ac == 1)
+		env.file = STDIN;
+	else
+	{
+		if (!(env.file = f_openf(av[1], 'r')))
+			f_eexit(0, "Invalid map name");
+	}
+
+	//parse_map(&env);
+	parse_obj(&env);
+	f_printf("%lu, %lu\n", env.map->verticies->total, env.map->indicies->total);
+
+	mlx = get_mlx();
+	win = create_window(1200, 1900, av[0]);
+
+	param.map = env.map;
 	param.win = win;
 	param.rot.x = 0;
 	param.rot.y = 0.15;
@@ -118,7 +128,6 @@ int main(void)
 	param.scale.x = 1;
 	param.scale.y = 1;
 	param.scale.z = 1;
-	
 	mlx_mouse_hook(win->win, mouse_hook, &param);
 	mlx_key_hook(win->win, key_hook, &param);
 	mlx_loop_hook(get_mlx(), draw_loop, &param);
