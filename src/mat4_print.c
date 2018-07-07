@@ -6,12 +6,16 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/03 05:43:25 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/03 05:56:04 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/07 10:02:59 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "gfxwtc.h"
+
+/*
+** Function only for debugging
+*/
 
 void	mat4_print(t_mat4 *m4)
 {
@@ -23,7 +27,7 @@ void	mat4_print(t_mat4 *m4)
 	{
 		printf("|");
 		while (++j < 4)
-			printf (" %f |", m4->data[i][j]);
+			printf(" %f |", m4->data[i][j]);
 		printf("\n");
 	}
 }

@@ -6,22 +6,20 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 17:28:26 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/06 14:04:11 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/07 09:55:59 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include "s_window.h"
 #include "s_line_list.h"
-#include "point_vector.h" 
+#include "point_vector.h"
 #include "gfxwtc.h"
-
-#include <stdio.h>
 
 static void	c_transform(t_point *p, t_vec3 *v, t_window *win)
 {
 	double zscale;
-	
+
 	if (v->z > 1)
 	{
 		zscale = 1 / (v->z);
@@ -35,11 +33,11 @@ static void	c_transform(t_point *p, t_vec3 *v, t_window *win)
 	}
 }
 
-void	draw(t_window *win, t_line_list *llist)
+void		draw(t_window *win, t_line_list *llist)
 {
-	size_t i;
-	t_point p1;
-	t_point p2;
+	size_t	i;
+	t_point	p1;
+	t_point	p2;
 
 	i = 0;
 	while (i < llist->indicies->total)

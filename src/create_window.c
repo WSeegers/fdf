@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 21:29:20 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/06 13:34:11 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/07 10:04:27 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "gfxwtc.h"
 #include "f_memory.h"
 
-t_window *create_window(int height, int width, char *title)
+t_window	*create_window(int height, int width, char *title)
 {
 	t_window *win;
 

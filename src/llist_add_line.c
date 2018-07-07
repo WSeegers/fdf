@@ -6,12 +6,12 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 18:18:14 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/06 13:10:17 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/07 10:05:36 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "s_line_list.h"
-#include "point_vector.h" 
+#include "point_vector.h"
 #include "f_memory.h"
 
 void		llist_add_line(t_line_list *llist, size_t i1, size_t i2)
