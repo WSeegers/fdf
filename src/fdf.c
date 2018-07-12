@@ -6,7 +6,7 @@
 /*   By: wseegers <wseegers.mauws@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 14:13:41 by wseegers          #+#    #+#             */
-/*   Updated: 2018/07/07 09:43:34 by wseegers         ###   ########.fr       */
+/*   Updated: 2018/07/12 05:19:13 by wseegers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,22 @@
 static int	draw_loop(void *param)
 {
 	t_param		*p;
-	t_line_list	*block1;
+	t_line_list	*map;
+	size_t		i;
 
 	p = (t_param*)param;
 	p->rot.y =
 		fmod((p->rot.y = p->rot.y + p->drot.y), 2);
-	block1 = transform(p->map,
+	map = transform(p->map,
 			p->scale,
 			(t_vec3){p->rot.x * M_PI, p->rot.y * M_PI, p->rot.z * M_PI},
 			p->transl);
 	mlx_clear_window(get_mlx(), p->win->win);
-	draw(p->win, block1);
-	f_memdel((void**)&block1);
+	draw(p->win, map);
+	i = -1;
+	while (++i < map->verticies->total)
+		free(map->verticies->data[i]);
+	f_memdel((void**)&map);
 	return (0);
 }
 
@@ -68,7 +72,10 @@ int			main(int ac, char *av[])
 	t_param		param;
 
 	if (ac == 1)
-		f_printf("Usage: ./fdf file_name.{fdf/obj}");
+	{
+		f_printf("Usage: ./fdf file_name.{fdf/obj}\n");
+		exit(0);
+	}
 	else
 	{
 		if (!(env.file = f_openf(av[1], 'r')))
